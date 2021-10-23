@@ -1,0 +1,33 @@
+{
+    "name": "GridControlnputAction",
+    "maps": [
+        {
+            "name": "Grid",
+            "id": "94b2c7df-02ee-4b7a-9681-ef6a93f7efe7",
+            "actions": [
+                {
+                    "name": "Mouse",
+                    "type": "Value",
+                    "id": "a17416fc-7811-455d-9838-53714e1b2996",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c2e7f0db-c74b-4f47-b6ff-2126ff4653e4",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Mouse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
