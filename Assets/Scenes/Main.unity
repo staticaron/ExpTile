@@ -123,6 +123,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &214687651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 214687652}
+  - component: {fileID: 214687653}
+  m_Layer: 0
+  m_Name: ObjectPlacer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &214687652
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214687651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &214687653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214687651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24a44553ba9e7fa45b9c42d0fc80b9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objects:
+  - {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
+  objectPlacementChannelSO: {fileID: 11400000, guid: 06da8f01118db944eb6e5cdb6def0791, type: 2}
 --- !u!1 &483647092
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,7 +290,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 6.75, y: 5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -279,10 +325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88bf9316f5e974c47a71aa6ac1cafc58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSizeX: 16
-  gridSizeY: 12
-  cellSize: 50
   gridChannelSO: {fileID: 11400000, guid: f508f5ef9bd6a8942a889e0b7019d775, type: 2}
+  objectPlacementChannelSO: {fileID: 11400000, guid: 06da8f01118db944eb6e5cdb6def0791, type: 2}
 --- !u!4 &786954011
 Transform:
   m_ObjectHideFlags: 0

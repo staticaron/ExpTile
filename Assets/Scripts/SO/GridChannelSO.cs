@@ -3,18 +3,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GridChannelSO", menuName = "GridChannelSO", order = 0)]
 public class GridChannelSO : ScriptableObject
 {
-    public delegate void PlaceObject(Vector2 clickPos, int obj_ID);
-    public event PlaceObject EPlaceObject;
+    public delegate void UpdateGrid(Vector2 clickPos, int obj_ID);
+    public event UpdateGrid EUpdateGrid;
 
     public void RaisePlaceObject(Vector2 clickPos, int obj_ID)
     {
-        if (EPlaceObject == null)
+        if (EUpdateGrid == null)
         {
-            Debug.Log("No one is Placeing Objects");
+            Debug.Log("No grid exist");
         }
         else
         {
-            EPlaceObject(clickPos, obj_ID);
+            EUpdateGrid(clickPos, obj_ID);
         }
     }
 }
