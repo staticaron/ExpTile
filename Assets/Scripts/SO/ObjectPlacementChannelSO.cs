@@ -3,10 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ObjectPlacementChannelSO", menuName = "ObjectPlacementChannelSO", order = 0)]
 public class ObjectPlacementChannelSO : ScriptableObject
 {
-    public delegate void PlaceObject(Vector2Int coordinates, int objID);
+    public delegate void PlaceObject(Vector2 coordinates, GameObject obj);
     public event PlaceObject EPlaceObject;
 
-    public void RaisePlaceObject(Vector2Int coordinates, int objID)
+    public void RaisePlaceObject(Vector2 coordinates, GameObject obj)
     {
         if (EPlaceObject == null)
         {
@@ -14,7 +14,7 @@ public class ObjectPlacementChannelSO : ScriptableObject
         }
         else
         {
-            EPlaceObject(coordinates, objID);
+            EPlaceObject(coordinates, obj);
         }
     }
 }

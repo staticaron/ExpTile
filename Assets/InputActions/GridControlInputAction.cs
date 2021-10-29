@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Scripts/InputActions/GridControlInputAction.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/InputActions/GridControlInputAction.inputactions'
 
 using System;
 using System.Collections;
@@ -33,6 +33,14 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""MouseRightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc6ed51f-ee5d-4836-a84f-aa9f4bb0309c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -57,6 +65,17 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                     ""action"": ""MouseClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06d1a299-7add-47f1-ba28-1d622418ddce"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MouseRightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -67,6 +86,7 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
         m_Grid = asset.FindActionMap("Grid", throwIfNotFound: true);
         m_Grid_MousePos = m_Grid.FindAction("MousePos", throwIfNotFound: true);
         m_Grid_MouseClick = m_Grid.FindAction("MouseClick", throwIfNotFound: true);
+        m_Grid_MouseRightClick = m_Grid.FindAction("MouseRightClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -118,12 +138,14 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
     private IGridActions m_GridActionsCallbackInterface;
     private readonly InputAction m_Grid_MousePos;
     private readonly InputAction m_Grid_MouseClick;
+    private readonly InputAction m_Grid_MouseRightClick;
     public struct GridActions
     {
         private @GridControlInputAction m_Wrapper;
         public GridActions(@GridControlInputAction wrapper) { m_Wrapper = wrapper; }
         public InputAction @MousePos => m_Wrapper.m_Grid_MousePos;
         public InputAction @MouseClick => m_Wrapper.m_Grid_MouseClick;
+        public InputAction @MouseRightClick => m_Wrapper.m_Grid_MouseRightClick;
         public InputActionMap Get() { return m_Wrapper.m_Grid; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -139,6 +161,9 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                 @MouseClick.started -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseClick;
                 @MouseClick.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseClick;
                 @MouseClick.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseClick;
+                @MouseRightClick.started -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
+                @MouseRightClick.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
+                @MouseRightClick.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
             }
             m_Wrapper.m_GridActionsCallbackInterface = instance;
             if (instance != null)
@@ -149,6 +174,9 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                 @MouseClick.started += instance.OnMouseClick;
                 @MouseClick.performed += instance.OnMouseClick;
                 @MouseClick.canceled += instance.OnMouseClick;
+                @MouseRightClick.started += instance.OnMouseRightClick;
+                @MouseRightClick.performed += instance.OnMouseRightClick;
+                @MouseRightClick.canceled += instance.OnMouseRightClick;
             }
         }
     }
@@ -157,5 +185,6 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
     {
         void OnMousePos(InputAction.CallbackContext context);
         void OnMouseClick(InputAction.CallbackContext context);
+        void OnMouseRightClick(InputAction.CallbackContext context);
     }
 }

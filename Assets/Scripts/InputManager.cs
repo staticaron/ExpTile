@@ -1,14 +1,18 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+using System;
 
 public class InputManager : MonoBehaviour
 {
     private GridControlInputAction gridControlInputAction;
     private Camera mainCam;
 
+    //Placable GameObjects
+    [SerializeField] List<GameObject> placableObjects;
+
     //SOs
-    [SerializeField] GridChannelSO gridChannelSO;
+    [SerializeField] ObjectPlacementChannelSO objectPlacementChannelSO;
 
     private void OnEnable()
     {
@@ -27,14 +31,22 @@ public class InputManager : MonoBehaviour
 
         //Link Controls
         gridControlInputAction.Grid.MouseClick.performed += ctx => MouseClick(ctx);
+        gridControlInputAction.Grid.MouseRightClick.performed += ctx => MouseRightClick(ctx);
     }
 
     private void MouseClick(InputAction.CallbackContext ctx)
     {
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
         Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
-        //Call Place Object
-        gridChannelSO.RaisePlaceObject(clickPosWorld, 0);
+
+        Debug.Log(placableObjects[0].name);
+
+        objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, placableObjects[0]);
+    }
+
+    private void MouseRightClick(InputAction.CallbackContext ctx)
+    {
+        throw new NotImplementedException();
     }
 
     private Vector2 GetWorldPosition(Vector2 pixelPos)

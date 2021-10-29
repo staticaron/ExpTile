@@ -20,6 +20,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "MouseRightClick",
+                    "type": "Button",
+                    "id": "fc6ed51f-ee5d-4836-a84f-aa9f4bb0309c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -42,6 +50,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "MouseClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06d1a299-7add-47f1-ba28-1d622418ddce",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseRightClick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
