@@ -27,6 +27,15 @@ public class ObjectPlacer : MonoBehaviour
         //Get Position according to coordinates
         Vector2 placePosition = GetPositionFromCoordinate(coordinates);
 
+        //Check if any object exist at that coordinate
+        GameObject objectAtCoordinate = gridChannelSO.RaiseGetGameObjectByCoordinates(coordinates);
+
+        if (objectAtCoordinate != null)
+        {
+            Debug.Log("Bruh, an object already exist there");
+            return;
+        }
+
         //Spawn object at the spawn position
         GameObject instantiatedGO = Instantiate(obj, placePosition, Quaternion.identity);
 
@@ -43,6 +52,13 @@ public class ObjectPlacer : MonoBehaviour
 
         //Get GO at that coordinate
         GameObject removableObject = gridChannelSO.RaiseGetGameObjectByCoordinates(coordinates);
+
+        //Check if object is availible at that coordinate
+        if (removableObject == null)
+        {
+            Debug.Log("No object exist at that coordinate to remove");
+            return;
+        }
 
         //Delete GO at that coordinate
         GameObject.Destroy(removableObject);
