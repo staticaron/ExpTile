@@ -39,14 +39,15 @@ public class InputManager : MonoBehaviour
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
         Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
 
-        Debug.Log(placableObjects[0].name);
-
         objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, placableObjects[0]);
     }
 
     private void MouseRightClick(InputAction.CallbackContext ctx)
     {
-        throw new NotImplementedException();
+        Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
+        Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
+
+        objectPlacementChannelSO.RaiseRemoveObject(clickPosWorld);
     }
 
     private Vector2 GetWorldPosition(Vector2 pixelPos)

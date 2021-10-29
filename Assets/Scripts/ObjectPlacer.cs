@@ -10,11 +10,13 @@ public class ObjectPlacer : MonoBehaviour
     private void OnEnable()
     {
         objectPlacementChannelSO.EPlaceObject += PlaceObject;
+        objectPlacementChannelSO.ERemoveObject += RemoveObject;
     }
 
     private void OnDisable()
     {
         objectPlacementChannelSO.EPlaceObject -= PlaceObject;
+        objectPlacementChannelSO.ERemoveObject -= RemoveObject;
     }
 
     private void PlaceObject(Vector2 clickPosition, GameObject obj)
@@ -32,6 +34,21 @@ public class ObjectPlacer : MonoBehaviour
 
         //Update the grid
         gridChannelSO.RaiseUpdateGrid(coordinates, instantiatedGO);
+    }
+
+    private void RemoveObject(Vector2 clickPosition)
+    {
+        //Get Coordinates
+        Vector2Int coordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
+
+        //Get GO at that coordinate
+        GameObject removableObject = gridChannelSO.RaiseGetGameObjectByCoordinates(coordinates);
+
+        //Delete GO at that coordinate
+        GameObject.Destroy(removableObject);
+
+        //Update the grid
+        gridChannelSO.RaiseUpdateGrid(coordinates, null);
     }
 
     private Vector2 GetPositionFromCoordinate(Vector2Int coordinate)
