@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 214687652}
   - component: {fileID: 214687653}
+  - component: {fileID: 214687654}
   m_Layer: 0
   m_Name: ObjectPlacer
   m_TagString: Untagged
@@ -170,6 +171,26 @@ MonoBehaviour:
   - {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
   objectPlacementChannelSO: {fileID: 11400000, guid: 06da8f01118db944eb6e5cdb6def0791, type: 2}
   gridChannelSO: {fileID: 11400000, guid: f508f5ef9bd6a8942a889e0b7019d775, type: 2}
+--- !u!114 &214687654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 214687651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae724f62e2a9d06448ccd1866093dfcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  placableObjects:
+  - type: 0
+    placableObject: {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
+  - type: 1
+    placableObject: {fileID: 703461143801141690, guid: e5cf67c8d743e074eb3cf1e8653d926b, type: 3}
+  - type: 2
+    placableObject: {fileID: 703461143801141690, guid: 11d7952bb003f494e8fd27f602235f2c, type: 3}
+  objectManagerChannelSO: {fileID: 11400000, guid: 51895f3641e1c8240940375385c38f8b, type: 2}
 --- !u!1 &483647092
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,9 +234,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d32df6653b5292549af1fe6529740995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  placableObjects:
-  - {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
+  currentDrawState: 2
   objectPlacementChannelSO: {fileID: 11400000, guid: 06da8f01118db944eb6e5cdb6def0791, type: 2}
+  objectManagerChannelSO: {fileID: 11400000, guid: 51895f3641e1c8240940375385c38f8b, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
