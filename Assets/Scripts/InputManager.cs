@@ -16,11 +16,11 @@ public class InputManager : MonoBehaviour
 
     [SerializeField] DrawState currentDrawState = DrawState.Idle;
 
-    //Placable GameObjects
-    [SerializeField] List<GameObject> placableObjects;
+    GameObject selectedPlacableObject = default;
 
     //SOs
     [SerializeField] ObjectPlacementChannelSO objectPlacementChannelSO;
+    [SerializeField] ObjectManagerChannelSO objectManagerChannelSO;
 
     private void OnEnable()
     {
@@ -58,6 +58,7 @@ public class InputManager : MonoBehaviour
 
     private void StartDrawing()
     {
+        selectedPlacableObject = objectManagerChannelSO.RaiseGetSelectedPlacableObject();
         currentDrawState = DrawState.Draw;
     }
 
@@ -81,7 +82,7 @@ public class InputManager : MonoBehaviour
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
         Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
 
-        objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, placableObjects[0]);
+        objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, selectedPlacableObject);
     }
 
     private void Erase()
