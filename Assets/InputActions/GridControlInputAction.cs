@@ -41,6 +41,38 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftMouseClickDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""d6c49b77-cf11-4f35-9d2a-fedaf8013477"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""LeftMouseClickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""585e4ef5-94cc-4d9d-8ee9-db049e896439"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightMouseClickDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""013a11d4-7f64-430d-af69-bd5dca59ce7b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""RightMouseClickUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""1a7ecb2e-5262-4242-b0e4-d326f8c37b48"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -76,6 +108,50 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                     ""action"": ""MouseRightClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e7a8f21a-2a83-4943-a70b-009edf7c5acd"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMouseClickDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""755c4e91-77e0-4eee-b4e8-f17c153a9791"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseClickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""370f2224-f0e2-416e-b067-82647f4447b9"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightMouseClickDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a393ffa2-2f23-4767-a79e-623f03ed8a57"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftMouseClickUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -87,6 +163,10 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
         m_Grid_MousePos = m_Grid.FindAction("MousePos", throwIfNotFound: true);
         m_Grid_MouseClick = m_Grid.FindAction("MouseClick", throwIfNotFound: true);
         m_Grid_MouseRightClick = m_Grid.FindAction("MouseRightClick", throwIfNotFound: true);
+        m_Grid_LeftMouseClickDown = m_Grid.FindAction("LeftMouseClickDown", throwIfNotFound: true);
+        m_Grid_LeftMouseClickUp = m_Grid.FindAction("LeftMouseClickUp", throwIfNotFound: true);
+        m_Grid_RightMouseClickDown = m_Grid.FindAction("RightMouseClickDown", throwIfNotFound: true);
+        m_Grid_RightMouseClickUp = m_Grid.FindAction("RightMouseClickUp", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -139,6 +219,10 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
     private readonly InputAction m_Grid_MousePos;
     private readonly InputAction m_Grid_MouseClick;
     private readonly InputAction m_Grid_MouseRightClick;
+    private readonly InputAction m_Grid_LeftMouseClickDown;
+    private readonly InputAction m_Grid_LeftMouseClickUp;
+    private readonly InputAction m_Grid_RightMouseClickDown;
+    private readonly InputAction m_Grid_RightMouseClickUp;
     public struct GridActions
     {
         private @GridControlInputAction m_Wrapper;
@@ -146,6 +230,10 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
         public InputAction @MousePos => m_Wrapper.m_Grid_MousePos;
         public InputAction @MouseClick => m_Wrapper.m_Grid_MouseClick;
         public InputAction @MouseRightClick => m_Wrapper.m_Grid_MouseRightClick;
+        public InputAction @LeftMouseClickDown => m_Wrapper.m_Grid_LeftMouseClickDown;
+        public InputAction @LeftMouseClickUp => m_Wrapper.m_Grid_LeftMouseClickUp;
+        public InputAction @RightMouseClickDown => m_Wrapper.m_Grid_RightMouseClickDown;
+        public InputAction @RightMouseClickUp => m_Wrapper.m_Grid_RightMouseClickUp;
         public InputActionMap Get() { return m_Wrapper.m_Grid; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -164,6 +252,18 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                 @MouseRightClick.started -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
                 @MouseRightClick.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
                 @MouseRightClick.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnMouseRightClick;
+                @LeftMouseClickDown.started -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickDown;
+                @LeftMouseClickDown.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickDown;
+                @LeftMouseClickDown.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickDown;
+                @LeftMouseClickUp.started -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickUp;
+                @LeftMouseClickUp.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickUp;
+                @LeftMouseClickUp.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnLeftMouseClickUp;
+                @RightMouseClickDown.started -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickDown;
+                @RightMouseClickDown.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickDown;
+                @RightMouseClickDown.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickDown;
+                @RightMouseClickUp.started -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickUp;
+                @RightMouseClickUp.performed -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickUp;
+                @RightMouseClickUp.canceled -= m_Wrapper.m_GridActionsCallbackInterface.OnRightMouseClickUp;
             }
             m_Wrapper.m_GridActionsCallbackInterface = instance;
             if (instance != null)
@@ -177,6 +277,18 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
                 @MouseRightClick.started += instance.OnMouseRightClick;
                 @MouseRightClick.performed += instance.OnMouseRightClick;
                 @MouseRightClick.canceled += instance.OnMouseRightClick;
+                @LeftMouseClickDown.started += instance.OnLeftMouseClickDown;
+                @LeftMouseClickDown.performed += instance.OnLeftMouseClickDown;
+                @LeftMouseClickDown.canceled += instance.OnLeftMouseClickDown;
+                @LeftMouseClickUp.started += instance.OnLeftMouseClickUp;
+                @LeftMouseClickUp.performed += instance.OnLeftMouseClickUp;
+                @LeftMouseClickUp.canceled += instance.OnLeftMouseClickUp;
+                @RightMouseClickDown.started += instance.OnRightMouseClickDown;
+                @RightMouseClickDown.performed += instance.OnRightMouseClickDown;
+                @RightMouseClickDown.canceled += instance.OnRightMouseClickDown;
+                @RightMouseClickUp.started += instance.OnRightMouseClickUp;
+                @RightMouseClickUp.performed += instance.OnRightMouseClickUp;
+                @RightMouseClickUp.canceled += instance.OnRightMouseClickUp;
             }
         }
     }
@@ -186,5 +298,9 @@ public class @GridControlInputAction : IInputActionCollection, IDisposable
         void OnMousePos(InputAction.CallbackContext context);
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMouseRightClick(InputAction.CallbackContext context);
+        void OnLeftMouseClickDown(InputAction.CallbackContext context);
+        void OnLeftMouseClickUp(InputAction.CallbackContext context);
+        void OnRightMouseClickDown(InputAction.CallbackContext context);
+        void OnRightMouseClickUp(InputAction.CallbackContext context);
     }
 }

@@ -1,12 +1,20 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using System;
+
+public enum DrawState
+{
+    Drawing,
+    Erasing,
+    Idle
+}
 
 public class InputManager : MonoBehaviour
 {
     private GridControlInputAction gridControlInputAction;
     private Camera mainCam;
+
+    [SerializeField] DrawState currentDrawState = DrawState.Idle;
 
     //Placable GameObjects
     [SerializeField] List<GameObject> placableObjects;
@@ -30,11 +38,42 @@ public class InputManager : MonoBehaviour
         mainCam = Camera.main;
 
         //Link Controls
-        gridControlInputAction.Grid.MouseClick.performed += ctx => MouseClick(ctx);
-        gridControlInputAction.Grid.MouseRightClick.performed += ctx => MouseRightClick(ctx);
+        gridControlInputAction.Grid.MouseClick.performed += ctx => MouseClick();
+        gridControlInputAction.Grid.MouseRightClick.performed += ctx => MouseRightClick();
+
+        gridControlInputAction.Grid.LeftMouseClickDown.performed += ctx => StartDrawing();
+        gridControlInputAction.Grid.LeftMouseClickUp.performed += ctx => EndDrawing();
     }
 
-    private void MouseClick(InputAction.CallbackContext ctx)
+    private void Update()
+    {
+        if (currentDrawState == DrawState.Drawing)
+        {
+            MouseClick();
+        }
+    }
+
+    private void StartDrawing()
+    {
+        currentDrawState = DrawState.Drawing;
+    }
+
+    private void EndDrawing()
+    {
+        currentDrawState = DrawState.Idle;
+    }
+
+    private void StartErasing()
+    {
+        currentDrawState = DrawState.Erasing;
+    }
+
+    private void EndErasing()
+    {
+        currentDrawState = DrawState.Idle;
+    }
+
+    private void MouseClick()
     {
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
         Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
@@ -42,7 +81,7 @@ public class InputManager : MonoBehaviour
         objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, placableObjects[0]);
     }
 
-    private void MouseRightClick(InputAction.CallbackContext ctx)
+    private void MouseRightClick()
     {
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
         Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
