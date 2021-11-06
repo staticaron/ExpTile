@@ -185,11 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   placableObjects:
   - type: 0
-    placableObject: {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
-  - type: 1
-    placableObject: {fileID: 703461143801141690, guid: e5cf67c8d743e074eb3cf1e8653d926b, type: 3}
-  - type: 2
-    placableObject: {fileID: 703461143801141690, guid: 11d7952bb003f494e8fd27f602235f2c, type: 3}
+    placableObject: {fileID: 3707070072037269269, guid: 5e4f7e1f185c44c4eb73847aaa22ac4c, type: 3}
+  selectedObject: 0
   objectManagerChannelSO: {fileID: 11400000, guid: 51895f3641e1c8240940375385c38f8b, type: 2}
 --- !u!1 &483647092
 GameObject:

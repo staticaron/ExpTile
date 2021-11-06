@@ -12,6 +12,12 @@ public class GridChannelSO : ScriptableObject
     public delegate Vector2Int GetCoordinatesByPosition(Vector2 position);
     public event GetCoordinatesByPosition EGetCoordinatesByPosition;
 
+    public delegate NeighbourData GetNeighbourDataFromCoordinates(Vector2Int coordinates);
+    public event GetNeighbourDataFromCoordinates EGetNeighbourDataFromCoordinates;
+
+    public delegate void UpdateNeighbours(Vector2Int gridCoordinates);
+    public event UpdateNeighbours EUpdateNeighbours;
+
     public GameObject RaiseGetGameObjectByCoordinates(Vector2Int coordinates)
     {
         if (EGetGameObjectByCoordinates == null)
@@ -47,6 +53,31 @@ public class GridChannelSO : ScriptableObject
         else
         {
             return EGetCoordinatesByPosition(position);
+        }
+    }
+
+    public NeighbourData RaiseGetNeighbourDataFromCoordinates(Vector2Int coordinates)
+    {
+        if (EGetNeighbourDataFromCoordinates == null)
+        {
+            Debug.Log("Error raising GetNeighbouringDataFromCoordinates, check if gridData exist");
+            return null;
+        }
+        else
+        {
+            return EGetNeighbourDataFromCoordinates(coordinates);
+        }
+    }
+
+    public void RaiseUpdateNeighbours(Vector2Int gridCoordinates)
+    {
+        if (EUpdateNeighbours == null)
+        {
+            Debug.Log("Error raising UpdateNeighbours, check if gridManager exists");
+        }
+        else
+        {
+            EUpdateNeighbours(gridCoordinates);
         }
     }
 }

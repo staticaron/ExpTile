@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class ObjectPlacer : MonoBehaviour
 {
-    [SerializeField] GameObject[] objects;
     //SOs
     [SerializeField] ObjectPlacementChannelSO objectPlacementChannelSO;
     [SerializeField] GridChannelSO gridChannelSO;
@@ -22,49 +21,46 @@ public class ObjectPlacer : MonoBehaviour
     private void PlaceObject(Vector2 clickPosition, GameObject obj)
     {
         //Get coordinates
-        Vector2Int coordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
+        Vector2Int placeCoordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
+        Vector2Int gridCoordinates = new Vector2Int(placeCoordinates.x, Mathf.Abs(placeCoordinates.y - 19));
 
         //Get Position according to coordinates
-        Vector2 placePosition = GetPositionFromCoordinate(coordinates);
+        Vector2 placePosition = GetPositionFromCoordinate(placeCoordinates);
 
         //Check if any object exist at that coordinate
-        GameObject objectAtCoordinate = gridChannelSO.RaiseGetGameObjectByCoordinates(coordinates);
+        GameObject objectAtCoordinate = gridChannelSO.RaiseGetGameObjectByCoordinates(gridCoordinates);
 
-        if (objectAtCoordinate != null)
-        {
-            Debug.Log("Bruh, an object already exist there");
-            return;
-        }
+        if (objectAtCoordinate != null) return;
 
         //Spawn object at the spawn position
         GameObject instantiatedGO = Instantiate(obj, placePosition, Quaternion.identity);
 
-        Debug.Log(instantiatedGO.GetInstanceID());
-
         //Update the grid
-        gridChannelSO.RaiseUpdateGrid(coordinates, instantiatedGO);
+        gridChannelSO.RaiseUpdateGrid(placeCoordinates, instantiatedGO);
+
+        //Set the road type
+        RoadPiece thisRoadPiece = instantiatedGO.GetComponent<RoadPiece>();
+        thisRoadPiece.SetCoordinates(gridCoordinates);
+        thisRoadPiece.UpdateSprite();
     }
 
     private void RemoveObject(Vector2 clickPosition)
     {
         //Get Coordinates
-        Vector2Int coordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
+        Vector2Int placeCoordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
+        Vector2Int gridCoordinates = new Vector2Int(placeCoordinates.x, Mathf.Abs(placeCoordinates.y - 19));
 
         //Get GO at that coordinate
-        GameObject removableObject = gridChannelSO.RaiseGetGameObjectByCoordinates(coordinates);
+        GameObject removableObject = gridChannelSO.RaiseGetGameObjectByCoordinates(gridCoordinates);
 
         //Check if object is availible at that coordinate
-        if (removableObject == null)
-        {
-            Debug.Log("No object exist at that coordinate to remove");
-            return;
-        }
+        if (removableObject == null) return;
 
         //Delete GO at that coordinate
         GameObject.Destroy(removableObject);
 
         //Update the grid
-        gridChannelSO.RaiseUpdateGrid(coordinates, null);
+        gridChannelSO.RaiseUpdateGrid(placeCoordinates, null);
     }
 
     private Vector2 GetPositionFromCoordinate(Vector2Int coordinate)
