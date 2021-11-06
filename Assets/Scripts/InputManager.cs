@@ -79,8 +79,7 @@ public class InputManager : MonoBehaviour
 
     private void Draw()
     {
-        Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
-        Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
+        Vector2 clickPosWorld = GetWorldPosition();
 
         objectPlacementChannelSO.RaisePlaceObject(clickPosWorld, selectedPlacableObject);
     }
@@ -88,13 +87,15 @@ public class InputManager : MonoBehaviour
     private void Erase()
     {
         Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
-        Vector2 clickPosWorld = GetWorldPosition(clickPosInPixels);
+        Vector2 clickPosWorld = GetWorldPosition();
 
         objectPlacementChannelSO.RaiseRemoveObject(clickPosWorld);
     }
 
-    private Vector2 GetWorldPosition(Vector2 pixelPos)
+    private Vector2 GetWorldPosition()
     {
-        return mainCam.ScreenToWorldPoint(pixelPos);
+        Vector2 clickPosInPixels = gridControlInputAction.Grid.MousePos.ReadValue<Vector2>();
+
+        return mainCam.ScreenToWorldPoint(clickPosInPixels);
     }
 }
