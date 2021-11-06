@@ -61,6 +61,9 @@ public class ObjectPlacer : MonoBehaviour
 
         //Update the grid
         gridChannelSO.RaiseUpdateGrid(placeCoordinates, null);
+
+        //Update the sorrounding tiles
+        gridChannelSO.RaiseUpdateNeighbours(gridCoordinates);
     }
 
     private Vector2 GetPositionFromCoordinate(Vector2Int coordinate)

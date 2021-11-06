@@ -44,7 +44,14 @@ public class GridManager : MonoBehaviour
 
     private GameObject GetGameObjectByCoordinates(Vector2Int coordinates)
     {
-        return gridArray[coordinates.x, coordinates.y];
+        try
+        {
+            return gridArray[coordinates.x, coordinates.y];
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     private void UpdateGrid(Vector2Int coordinates, GameObject obj)
