@@ -20,17 +20,18 @@ public class ObjectPlacer : MonoBehaviour
 
     private void PlaceObject(Vector2 clickPosition, GameObject obj)
     {
-        //Get coordinates
         Vector2Int placeCoordinates = gridChannelSO.RaiseGetCoordinatesByPosition(clickPosition);
         Vector2Int gridCoordinates = new Vector2Int(placeCoordinates.x, Mathf.Abs(placeCoordinates.y - 19));
+        Vector2Int objectSize = obj.GetComponent<PlacableTile>().GetTileSize();
 
         //Get Position according to coordinates
         Vector2 placePosition = GetPositionFromCoordinate(placeCoordinates);
 
         //Check if any object exist at that coordinate
-        GameObject objectAtCoordinate = gridChannelSO.RaiseGetGameObjectByCoordinates(gridCoordinates);
+        // GameObject objectAtCoordinate = gridChannelSO.RaiseGetGameObjectByCoordinates(gridCoordinates, objectSize);
+        bool validPlacement = gridChannelSO.RaiseCheckValidPlacement(gridCoordinates, objectSize);
 
-        if (objectAtCoordinate != null) return;
+        if (validPlacement != true) return;
 
         //Spawn object at the spawn position
         GameObject instantiatedGO = Instantiate(obj, placePosition, Quaternion.identity);
