@@ -54,11 +54,17 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void UpdateGrid(Vector2Int coordinates, GameObject obj)
+    private void UpdateGrid(Vector2Int coordinates, Vector2Int size, GameObject obj)
     {
         coordinates = new Vector2Int(coordinates.x, Mathf.Abs(coordinates.y - 19));
 
-        gridArray[coordinates.x, coordinates.y] = obj;
+        for (int col = coordinates.y; col > coordinates.y - 2; col--)
+        {
+            for (int row = coordinates.x; row < coordinates.x + 2; row++)
+            {
+                gridArray[row, col] = obj;
+            }
+        }
     }
 
     private NeighbourData GetNeighbourDataFromCoordinates(Vector2Int coordinates)

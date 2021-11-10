@@ -34,14 +34,14 @@ public class ObjectPlacer : MonoBehaviour
 
         //Spawn object at the spawn position
         GameObject instantiatedGO = Instantiate(obj, placePosition, Quaternion.identity);
+        PlacableTile thisPlacableTile = instantiatedGO.GetComponent<PlacableTile>();
 
         //Update the grid
-        gridChannelSO.RaiseUpdateGrid(placeCoordinates, instantiatedGO);
+        gridChannelSO.RaiseUpdateGrid(placeCoordinates, thisPlacableTile.GetTileSize(), instantiatedGO);
 
         //Set the road type
-        RoadPiece thisRoadPiece = instantiatedGO.GetComponent<RoadPiece>();
-        thisRoadPiece.SetCoordinates(gridCoordinates);
-        thisRoadPiece.UpdateSprite();
+        thisPlacableTile.SetCoordinates(gridCoordinates);
+        thisPlacableTile.InitializePlacament();
     }
 
     private void RemoveObject(Vector2 clickPosition)
@@ -53,14 +53,15 @@ public class ObjectPlacer : MonoBehaviour
         //Get GO at that coordinate
         GameObject removableObject = gridChannelSO.RaiseGetGameObjectByCoordinates(gridCoordinates);
 
-        //Check if object is availible at that coordinate
         if (removableObject == null) return;
+
+        PlacableTile removablePlacableTime = removableObject.GetComponent<PlacableTile>();
 
         //Delete GO at that coordinate
         GameObject.Destroy(removableObject);
 
         //Update the grid
-        gridChannelSO.RaiseUpdateGrid(placeCoordinates, null);
+        gridChannelSO.RaiseUpdateGrid(placeCoordinates, removablePlacableTime.GetTileSize(), null);
 
         //Update the sorrounding tiles
         gridChannelSO.RaiseUpdateNeighbours(gridCoordinates);

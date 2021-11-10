@@ -167,8 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24a44553ba9e7fa45b9c42d0fc80b9fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objects:
-  - {fileID: 703461143801141690, guid: 7733ba3404728004b82cbb9cbc41275e, type: 3}
   objectPlacementChannelSO: {fileID: 11400000, guid: 06da8f01118db944eb6e5cdb6def0791, type: 2}
   gridChannelSO: {fileID: 11400000, guid: f508f5ef9bd6a8942a889e0b7019d775, type: 2}
 --- !u!114 &214687654
@@ -186,7 +184,9 @@ MonoBehaviour:
   placableObjects:
   - type: 0
     placableObject: {fileID: 3707070072037269269, guid: 5e4f7e1f185c44c4eb73847aaa22ac4c, type: 3}
-  selectedObject: 0
+  - type: 1
+    placableObject: {fileID: 8649159973984198525, guid: 178ac337c7bf402489cfc5822ca65bb6, type: 3}
+  selectedObject: 1
   objectManagerChannelSO: {fileID: 11400000, guid: 51895f3641e1c8240940375385c38f8b, type: 2}
 --- !u!1 &483647092
 GameObject:
