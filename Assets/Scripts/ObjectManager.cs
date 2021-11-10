@@ -4,9 +4,8 @@ using System;
 
 public enum PlaceObjectType
 {
-    Normal,
-    Red,
-    Blue
+    Road,
+    Building
 }
 
 [Serializable]
@@ -20,7 +19,7 @@ public class ObjectManager : MonoBehaviour
 {
     [SerializeField] List<PlacableObject> placableObjects;
 
-    [SerializeField] PlaceObjectType selectedObject = PlaceObjectType.Normal;
+    [SerializeField] PlaceObjectType selectedObject = PlaceObjectType.Road;
 
     //SOs
     [SerializeField] ObjectManagerChannelSO objectManagerChannelSO;

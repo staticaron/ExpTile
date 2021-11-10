@@ -13,8 +13,9 @@ public enum RoadBlockType
     None, UpDownOneWay, LeftRightOneWay, LeftDownAngleWay, RightDownAngleWay, LeftUpAngleWay, RightUpAngleWay, LeftRightUpTriway, LeftRightDownTriway, LeftUpDownTriway, RightUpDownTriway, AllDirectionalFourWay
 }
 
-public class RoadPiece : MonoBehaviour
+public class RoadPiece : PlacableTile
 {
+    //Road Piece data items
     public RoadBlockType currentRoadType = RoadBlockType.None;
 
     [SerializeField] Sprite noneDirectionalRoad;
@@ -30,9 +31,7 @@ public class RoadPiece : MonoBehaviour
     [SerializeField] Sprite leftUpDownTriway;
     [SerializeField] Sprite rightUpDownTriway;
 
-    [SerializeField] SpriteRenderer thisRenderer;
-
-    private Vector2Int coordinates;
+    private SpriteRenderer thisRenderer;
 
     //SOs
     [SerializeField] GridChannelSO gridChannelSO;
@@ -43,6 +42,7 @@ public class RoadPiece : MonoBehaviour
         thisRenderer = GetComponent<SpriteRenderer>();
     }
 
+    //Updates this tile according to the neighbour data
     public void UpdateSprite()
     {
         //Check for the sorrounding tiles and update accordingly
@@ -60,12 +60,7 @@ public class RoadPiece : MonoBehaviour
         }
     }
 
-    //Called when road tile is created to set its coordinates
-    public void SetCoordinates(Vector2Int coordinates)
-    {
-        this.coordinates = coordinates;
-    }
-
+    //Get the sprite for this tile according to the neighbour data
     private Sprite GetSpriteFromNeighbourData(NeighbourData data)
     {
         if (data.left == true && data.right == false)
@@ -183,5 +178,10 @@ public class RoadPiece : MonoBehaviour
         }
 
         return noneDirectionalRoad;
+    }
+
+    public override void InitializePlacament()
+    {
+        UpdateSprite();
     }
 }

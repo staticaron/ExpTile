@@ -6,7 +6,7 @@ public class GridChannelSO : ScriptableObject
     public delegate GameObject GetGameObjectByCoordinates(Vector2Int coordinates);
     public event GetGameObjectByCoordinates EGetGameObjectByCoordinates;
 
-    public delegate void UpdateGrid(Vector2Int coordinates, GameObject obj);
+    public delegate void UpdateGrid(Vector2Int coordinates, Vector2Int objectSize, GameObject obj);
     public event UpdateGrid EUpdateGrid;
 
     public delegate Vector2Int GetCoordinatesByPosition(Vector2 position);
@@ -17,6 +17,9 @@ public class GridChannelSO : ScriptableObject
 
     public delegate void UpdateNeighbours(Vector2Int gridCoordinates);
     public event UpdateNeighbours EUpdateNeighbours;
+
+    public delegate bool CheckValidPlacement(Vector2Int coordinates, Vector2Int size);
+    public event CheckValidPlacement ECheckValidPlacement;
 
     public GameObject RaiseGetGameObjectByCoordinates(Vector2Int coordinates)
     {
@@ -31,7 +34,7 @@ public class GridChannelSO : ScriptableObject
         }
     }
 
-    public void RaiseUpdateGrid(Vector2Int coordinates, GameObject obj)
+    public void RaiseUpdateGrid(Vector2Int coordinates, Vector2Int objectSize, GameObject obj)
     {
         if (EUpdateGrid == null)
         {
@@ -39,7 +42,7 @@ public class GridChannelSO : ScriptableObject
         }
         else
         {
-            EUpdateGrid(coordinates, obj);
+            EUpdateGrid(coordinates, objectSize, obj);
         }
     }
 
@@ -78,6 +81,19 @@ public class GridChannelSO : ScriptableObject
         else
         {
             EUpdateNeighbours(gridCoordinates);
+        }
+    }
+
+    public bool RaiseCheckValidPlacement(Vector2Int coordinates, Vector2Int size)
+    {
+        if (ECheckValidPlacement == null)
+        {
+            Debug.LogError("Error raising CheckValidPlacement, check if GridManager exists");
+            return false;
+        }
+        else
+        {
+            return ECheckValidPlacement(coordinates, size);
         }
     }
 }

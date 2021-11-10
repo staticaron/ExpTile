@@ -22,6 +22,7 @@ public class GridManager : MonoBehaviour
         gridChannelSO.EUpdateGrid += UpdateGrid;
         gridChannelSO.EGetNeighbourDataFromCoordinates += GetNeighbourDataFromCoordinates;
         gridChannelSO.EUpdateNeighbours += UpdateNeighbourAtCoordinates;
+        gridChannelSO.ECheckValidPlacement += CheckValidPlacement;
     }
 
     private void OnDisable()
@@ -32,6 +33,7 @@ public class GridManager : MonoBehaviour
         gridChannelSO.EUpdateGrid -= UpdateGrid;
         gridChannelSO.EGetNeighbourDataFromCoordinates -= GetNeighbourDataFromCoordinates;
         gridChannelSO.EUpdateNeighbours -= UpdateNeighbourAtCoordinates;
+        gridChannelSO.ECheckValidPlacement -= CheckValidPlacement;
     }
 
     private Vector2Int PositionToCoordinate(Vector2 click_pos)
@@ -54,11 +56,35 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    private void UpdateGrid(Vector2Int coordinates, GameObject obj)
+    private bool CheckValidPlacement(Vector2Int coordinates, Vector2Int size)
+    {
+        for (int col = coordinates.y; col > coordinates.y - size.y; col--)
+        {
+            for (int row = coordinates.x; row < coordinates.x + size.x; row++)
+            {
+                bool objectAtCoordinate = gridArray[row, col] != null;
+
+                if (objectAtCoordinate == true)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private void UpdateGrid(Vector2Int coordinates, Vector2Int size, GameObject obj)
     {
         coordinates = new Vector2Int(coordinates.x, Mathf.Abs(coordinates.y - 19));
 
-        gridArray[coordinates.x, coordinates.y] = obj;
+        for (int col = coordinates.y; col > coordinates.y - size.y; col--)
+        {
+            for (int row = coordinates.x; row < coordinates.x + size.x; row++)
+            {
+                gridArray[row, col] = obj;
+            }
+        }
     }
 
     private NeighbourData GetNeighbourDataFromCoordinates(Vector2Int coordinates)
@@ -96,10 +122,10 @@ public class GridManager : MonoBehaviour
         GameObject leftObject = GetGameObjectByCoordinates(new Vector2Int(coordinates.x - 1, coordinates.y));
         GameObject rightObject = GetGameObjectByCoordinates(new Vector2Int(coordinates.x + 1, coordinates.y));
 
-        if (upObject != null) upObject.GetComponent<RoadPiece>().UpdateSprite();
-        if (downObject != null) downObject.GetComponent<RoadPiece>().UpdateSprite();
-        if (leftObject != null) leftObject.GetComponent<RoadPiece>().UpdateSprite();
-        if (rightObject != null) rightObject.GetComponent<RoadPiece>().UpdateSprite();
+        if (upObject != null) upObject.GetComponent<PlacableTile>().InitializePlacament();
+        if (downObject != null) downObject.GetComponent<PlacableTile>().InitializePlacament();
+        if (leftObject != null) leftObject.GetComponent<PlacableTile>().InitializePlacament();
+        if (rightObject != null) rightObject.GetComponent<PlacableTile>().InitializePlacament();
     }
 
     [ContextMenu("Print Grid")]
